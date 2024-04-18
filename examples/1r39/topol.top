@@ -1,0 +1,48 @@
+;
+;	File 'topol.top' was generated
+;	By user: pbsong (1000)
+;	On host: pbsong-XPS-8930
+;	At date: Wed May 31 16:47:43 2023
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	             :-) GROMACS - gmx pdb2gmx, 2021.1-dev-UNCHECKED (-:
+;	
+;	Executable:   /home/pbsong/local/gromacs/bin/gmx_mpi
+;	Data prefix:  /home/pbsong/local/gromacs
+;	Working dir:  /home/pbsong/gromacs/allosteric/1r39
+;	Command line:
+;	  gmx_mpi pdb2gmx -f 1r39_protein.pdb -o 1r39.gro -p topol.top -i posre_protein.itp -ignh
+;	Force field was read from the standard GROMACS share directory.
+;
+
+; Include forcefield parameters
+#include "charmm36_ljpme-jul2022.ff/forcefield.itp"
+
+; Include protein topology file
+#include "1r39_protein.itp"
+
+; Include water topology
+#include "charmm36_ljpme-jul2022.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "charmm36_ljpme-jul2022.ff/ions.itp"
+
+[ system ]
+; Name
+Protein in water
+
+[ molecules ]
+; Compound        #mols
+Protein_chain_A     1
+SOL         23823
+SOD              55
+CLA              48
